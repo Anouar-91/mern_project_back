@@ -21,12 +21,12 @@ export const signUpErrors = (err) => {
 }
 
 export const signInErrors = (err) => {
-    let errors = { email: '', password: '', err}
+    let errors = { email: '', password: ''}
     if(err.message.includes('email')){
         errors.email = "Email inconnu"
     }
     if(err.message.includes('password')){
-        errors.password = "Password incorrect ! Mot de passe ne correspond pas."
+        errors.password = "Vos identifiants sont incorrects !"
     }
     return errors
 }

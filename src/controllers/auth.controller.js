@@ -20,31 +20,32 @@ export const signUp = async (req, res) => {
         const user = await User.create({ pseudo, email, password })
         res.status(201).send({ user: user._id })
     }
-    catch(err) {
+    catch (err) {
         const errors = signUpErrors(err)
-        return res.status(200).send({errors })
+        return res.status(200).send({ errors })
     }
 }
 
 export const signIn = async (req, res) => {
     const { email, password } = req.body
-
     try {
         //check user exist and compare email with password
         const user = await User.login(email, password)
         //create token
         const token = createToken(user._id)
         //on retourne le token dans les cookies accessible seulement par le serveur
-        res.cookie('jwt', token, { httpOnly: true, maxAge })
+        res.cookie("jwt", token, {
+            withCredentials: true,
+            httpOnly: true,
+            maxAge: maxAge,
+        });
         res.status(200).json({ user: user._id })
     }
     catch (err) {
         console.log(err)
         const errors = signInErrors(err)
-        return res.status(200).send({errors })
+        return res.status(200).send({ errors })
     }
-
-
 }
 
 export const logout = async (req, res) => {
