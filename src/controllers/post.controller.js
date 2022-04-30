@@ -1,6 +1,8 @@
 const Post = require('../models/post.model')
 const User = require('../models/user.model')
 const ObjectID = require("mongoose").Types.ObjectId;
+import { uploadErrors} from '../utils/errors.utils'
+
 
 export const readPost = async (req, res, next) => {
     try {
@@ -12,9 +14,25 @@ export const readPost = async (req, res, next) => {
     }
 }
 export const createPost = async (req, res, next) => {
+    if(req.file != null){
+        console.log(req.file )
+        try{
+            if(req.file.mimetype != "image/jpg" && req.file.mimetype != "image/png" && req.file.mimetype != "image/jpeg"){
+                throw new Error('invalid file')
+            }
+            if(req.file.size > 500000){
+                throw new Error('max size')
+            }
+        }
+        catch(err){
+            const errors = uploadErrors(err);
+            return res.status(201).json(errors)
+        }
+    }
     const newPost = new Post({
         posterId: req.body.posterId,
         message: req.body.message,
+        picture: req.file != null ? `./uploads/post/${req.file.filename}` : "",
         video: req.body.video,
         likers: [],
         comments: [],

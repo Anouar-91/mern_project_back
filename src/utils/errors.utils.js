@@ -30,3 +30,16 @@ export const signInErrors = (err) => {
     }
     return errors
 }
+
+export const uploadErrors = (err) => {
+    let errors = {format: '', maxSize:''}
+
+    if(err.message.includes('invalid file')){
+        errors.format = "format incompatible"
+    }
+
+    if(err.message.includes('max size')){
+        errors.maxSize = "Le fichier dépasse 500ko"
+    }
+    return errors;
+}
