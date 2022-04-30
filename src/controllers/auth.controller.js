@@ -18,11 +18,11 @@ export const signUp = async (req, res) => {
     const { pseudo, email, password } = req.body
     try {
         const user = await User.create({ pseudo, email, password })
-        res.status(201).json({ user: user._id })
+        res.status(201).send({ user: user._id })
     }
     catch(err) {
         const errors = signUpErrors(err)
-        res.status(200).send(errors)
+        return res.status(200).send({errors })
     }
 }
 
@@ -41,7 +41,7 @@ export const signIn = async (req, res) => {
     catch (err) {
         console.log(err)
         const errors = signInErrors(err)
-        return res.status(200).json(errors )
+        return res.status(200).send({errors })
     }
 
 
