@@ -4,7 +4,7 @@ const ObjectID = require("mongoose").Types.ObjectId;
 
 export const readPost = async (req, res, next) => {
     try {
-        const posts = await Post.find()
+        const posts = await Post.find().sort({ createdAt: -1 })
         res.status(200).json(posts)
     }
     catch (err) {
@@ -74,8 +74,8 @@ export const likePost = async (req, res, next) => {
             {
                 $addToSet: { likers: req.body.id }
             },
-            { 
-                new: true 
+            {
+                new: true
             }
         )
         const user = await User.findByIdAndUpdate(
@@ -103,8 +103,8 @@ export const unlikePost = async (req, res, next) => {
             {
                 $pull: { likers: req.body.id }
             },
-            { 
-                new: true 
+            {
+                new: true
             }
         )
         const user = await User.findByIdAndUpdate(
@@ -120,5 +120,81 @@ export const unlikePost = async (req, res, next) => {
     }
     catch (err) {
         res.status(400).send({ err })
+    }
+}
+
+export const commentPost = async (req, res, next) => {
+    if (!ObjectID.isValid(req.params.id)) {
+        return res.status(400).send(`Id unknown : ${req.params.id}`)
+    }
+    try {
+        const post = await Post.findByIdAndUpdate(
+            req.params.id,
+            {
+                $push: {
+                    comments: {
+                        commenterId: req.body.id,
+                        commenterPseudo: req.body.commenterPseudo,
+                        text: req.body.text,
+                        timestamp: new Date().getTime()
+                    }
+                }
+            },
+            { new: true }
+        )
+        res.send(post)
+    }
+    catch (err) {
+        res.status(400).send({ err })
+    }
+}
+
+export const editCommentPost = async (req, res, next) => {
+    if (!ObjectID.isValid(req.params.id)) {
+        return res.status(400).send(`Id unknown : ${req.params.id}`)
+    }
+    try {
+        //on récupère le post concerné
+        const post = await Post.findById(req.params.id)
+        //on récupère le commentaire concerné
+        const theComment = await post.comments.find((comment) => {
+            return comment._id.equals(req.body.commentId)
+        })
+        //on change le text
+        theComment.text = req.body.text
+        // on save les changements
+        await post.save();
+        //on send le post concerné
+        return res.send(post)
+    }
+    catch (err) {
+        return res.status(400).send(err)
+    }
+}
+
+
+export const deleteCommentPost = async (req, res, next) => {
+    if (!ObjectID.isValid(req.params.id)) {
+        return res.status(400).send(`Id unknown : ${req.params.id}`)
+    }
+    try {
+        const post = await Post.findByIdAndUpdate(
+            req.params.id,
+            {
+                $pull: {
+                    comments: {
+                        _id: req.body.commentId
+                    }
+                }
+            },
+            { new: true }
+        ).then((newPost) => {
+            res.send(newPost)
+        }).catch((err) => {
+            return res.status(400).send(err)
+        });
+    }
+    catch (err) {
+        return res.status(400).send(err)
     }
 }
