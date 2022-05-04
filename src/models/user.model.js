@@ -28,7 +28,7 @@ const UserSchema = new Schema({
     },
     picture:{
         type:String,
-        default:"./uploads/profile/random-user.png"
+        default:"./uploads/profil/random-user.png"
     },
     bio:{
         type:String,

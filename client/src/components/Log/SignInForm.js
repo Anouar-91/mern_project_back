@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -17,12 +17,11 @@ const SignInForm = () => {
       password: password,
     },      { withCredentials: true })
     .then(function (res) {
-      console.log(res)
       if (res.data.errors) {
         emailError.innerHTML = res.data.errors.email
         passwordError.innerHTML = res.data.errors.password
       } else {
-        navigate('/')
+        window.location = "/";
       }
     })
     .catch(function (error) {

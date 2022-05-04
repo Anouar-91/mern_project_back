@@ -10,7 +10,7 @@ export const checkUser = (req, res, next) => {
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null;
-        res.cookie("jwt", '', { maxAge: 1 })
+       // res.cookie("jwt", '', { maxAge: 1 })
         next();
       } else {
         let user = await User.findById(decodedToken.id);
@@ -23,9 +23,8 @@ export const checkUser = (req, res, next) => {
     })
   }
   else {
-    console.log('UNAUTORIZED')
     res.locals.user = null;
-    next(new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED));
+    next();
   }
 }
 

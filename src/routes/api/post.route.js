@@ -28,7 +28,7 @@ api.patch('/unlike-post/:id', PostController.unlikePost);
 
 //comments
 api.patch('/comment-post/:id', PostController.commentPost)
-api.patch('/edit-comment-post/:id', PostController.editCommentPost)
+api.put('/edit-comment-post/:id', PostController.editCommentPost)
 api.patch('/delete-comment-post/:id', PostController.deleteCommentPost)
 
 

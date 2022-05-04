@@ -46,9 +46,11 @@ export const createPost = async (req, res, next) => {
     }
 }
 export const updatePost = async (req, res, next) => {
+
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send(`Id unknown : ${req.params.id}`)
     }
+    
     try {
         const updatedRecord = {
             message: req.body.message
@@ -105,7 +107,7 @@ export const likePost = async (req, res, next) => {
                 new: true
             }
         );
-        res.status(200).send(user)
+        res.status(200).send(post)
     }
     catch (err) {
         res.status(400).send({ err })

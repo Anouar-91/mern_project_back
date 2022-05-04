@@ -20,7 +20,7 @@ const SignUpForm = () => {
     confirmPasswordError.innerHTML = "";
     termError.innerHTML = ''
 
-    if(password != controlPassword){
+    if(password !== controlPassword){
       confirmPasswordError.innerHTML = "Vous n'avez pas correctement confirmé votre mot de passe ! "
     }
     if(!terms.checked){

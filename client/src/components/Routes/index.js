@@ -6,18 +6,23 @@ import ErrorPage from '../ErrorPage'
 import Navbar from '../Navbar'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-const index = () => {
+const RouteNav = () => {
+
   return (
+    <div>
     <Router>
+      <Navbar/>
         <Routes>
-          <Route path="/" element={<Homes />} />
+          <Route path="/"  element={<Homes />} />
           <Route path="/profil" element={<Profil />} />
-          <Route path="/trending" element={<Trending />} />
+          <Route path="/trending"  element={<Trending />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
 
     </Router>
+    </div>
+
   )
 }
 
-export default index
+export default RouteNav
