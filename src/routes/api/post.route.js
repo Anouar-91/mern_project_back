@@ -4,7 +4,7 @@ const multer  = require('multer')
 
 const fileStorageEngine = multer.diskStorage({
     destination:(req, file, cb) => {
-        cb(null, `${__dirname}/../../../client/public/uploads/post`)
+        cb(null, `${__dirname}/../../../client/public/uploads/posts`)
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -28,7 +28,7 @@ api.patch('/unlike-post/:id', PostController.unlikePost);
 
 //comments
 api.patch('/comment-post/:id', PostController.commentPost)
-api.put('/edit-comment-post/:id', PostController.editCommentPost)
+api.patch('/edit-comment-post/:id', PostController.editCommentPost)
 api.patch('/delete-comment-post/:id', PostController.deleteCommentPost)
 
 

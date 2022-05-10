@@ -14,12 +14,10 @@ const App = () => {
       await axios.get(`${process.env.REACT_APP_API_URL}jwtid`, { withCredentials: true })
         .then((res) => {
           // handle success
-          console.log(res);
           setUid(res.data)
         })
         .catch((error) => {
           // handle error
-          console.log(error);
           setUid(null)
         })
     }
@@ -27,7 +25,6 @@ const App = () => {
     dispatch(getUser(uid))
   }, [uid, dispatch]);
 
-console.log(uid)
   return (
     <div>
       <UidContext.Provider value={uid}>

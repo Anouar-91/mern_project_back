@@ -26,13 +26,13 @@ export const createPost = async (req, res, next) => {
         }
         catch(err){
             const errors = uploadErrors(err);
-            return res.status(201).json(errors)
+            return res.status(201).json({errors})
         }
     }
     const newPost = new Post({
         posterId: req.body.posterId,
         message: req.body.message,
-        picture: req.file != null ? `./uploads/post/${req.file.filename}` : "",
+        picture: req.file != null ? `./uploads/posts/${req.file.filename}` : "",
         video: req.body.video,
         likers: [],
         comments: [],
@@ -153,7 +153,7 @@ export const commentPost = async (req, res, next) => {
             {
                 $push: {
                     comments: {
-                        commenterId: req.body.id,
+                        commenterId: req.body.commenterId,
                         commenterPseudo: req.body.commenterPseudo,
                         text: req.body.text,
                         timestamp: new Date().getTime()
@@ -161,8 +161,8 @@ export const commentPost = async (req, res, next) => {
                 }
             },
             { new: true }
-        )
-        res.send(post)
+        ).then((data) => res.send(data))
+        .catch((err) => res.status(500).send({ message: err }));
     }
     catch (err) {
         res.status(400).send({ err })
@@ -173,13 +173,16 @@ export const editCommentPost = async (req, res, next) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send(`Id unknown : ${req.params.id}`)
     }
+
     try {
         //on récupère le post concerné
         const post = await Post.findById(req.params.id)
+     
         //on récupère le commentaire concerné
         const theComment = await post.comments.find((comment) => {
             return comment._id.equals(req.body.commentId)
         })
+        console.log(theComment)
         //on change le text
         theComment.text = req.body.text
         // on save les changements

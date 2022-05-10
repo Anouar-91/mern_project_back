@@ -6,13 +6,13 @@ export const uploadProfil = async(req, res) => {
         if(req.file.mimetype != "image/jpg" && req.file.mimetype != "image/png" && req.file.mimetype != "image/jpeg"){
             throw new Error('invalid file')
         }
-        if(req.file.size > 500000000){
+        if(req.file.size > 5000000){
             throw new Error('max size')
         }
     }
     catch(err){
         const errors = uploadErrors(err);
-        return res.status(201).json(errors)
+        return res.status(201).json({errors})
     }
     try{
              await User.findByIdAndUpdate(
