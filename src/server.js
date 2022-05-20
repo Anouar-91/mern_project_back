@@ -1,5 +1,4 @@
 import express from 'express';
-import res from 'express/lib/response';
 import DefaultRouter from './routes';
 const bodyParser = require('body-parser');
 
