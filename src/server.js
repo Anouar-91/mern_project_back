@@ -35,7 +35,7 @@ export function launch({ host, protocol, port }) {
   application.use(express.static('assets'));
 
   application.listen(
-    port,
+    process.env.PORT || port,
     () => console.log(`Server started at ${protocol}://${host}:${port}`),
   );
 }
