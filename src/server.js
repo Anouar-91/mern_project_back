@@ -32,6 +32,7 @@ export function launch({ host, protocol, port }) {
   })
 
   application.use(DefaultRouter);
+  application.use(express.static('assets'));
 
   application.listen(
     port,

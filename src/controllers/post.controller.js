@@ -32,7 +32,7 @@ export const createPost = async (req, res, next) => {
     const newPost = new Post({
         posterId: req.body.posterId,
         message: req.body.message,
-        picture: req.file != null ? `./uploads/posts/${req.file.filename}` : "",
+        picture: req.file != null ? `http://localhost:8080/uploads/posts/${req.file.filename}` : "",
         video: req.body.video,
         likers: [],
         comments: [],

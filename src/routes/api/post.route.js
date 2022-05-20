@@ -4,7 +4,7 @@ const multer  = require('multer')
 
 const fileStorageEngine = multer.diskStorage({
     destination:(req, file, cb) => {
-        cb(null, `${__dirname}/../../../client/public/uploads/posts`)
+        cb(null, `${__dirname}/../../../assets/uploads/posts`)
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)

@@ -18,7 +18,7 @@ export const uploadProfil = async(req, res) => {
              await User.findByIdAndUpdate(
             req.body.userId,
             {
-                $set : { picture: `./uploads/profil/${req.file.filename}` }
+                $set : { picture: `http://localhost:8080/uploads/profils/${req.file.filename}` }
             },
             {new:true, upsert:true, setDefaultsOnInsert:true}
             ).then((user) => {
