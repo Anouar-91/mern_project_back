@@ -50,7 +50,7 @@ function launch({
   });
   application.use(_routes.default);
   application.use(_express.default.static('assets'));
-  application.listen(process.env.PORT || port, () => console.log(`Server started at ${protocol}://${host}:${port}`));
+  application.listen(port, () => console.log(`Server started at ${protocol}://${host}:${port}`));
 }
 /* require('dotenv').config({path:'./config/.env'})
  */
