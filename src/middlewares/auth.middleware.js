@@ -6,7 +6,7 @@ import { HttpException, HttpStatus } from '../errors/HttpException.error';
 export const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
- 
+    console.log("token ok")
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null;
@@ -23,8 +23,10 @@ export const checkUser = (req, res, next) => {
     })
   }
   else {
+    console.log("token invalid")
     res.locals.user = null;
-    next();
+    return next(new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED));
+/*     next(); */
   }
 }
 

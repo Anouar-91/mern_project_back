@@ -17,6 +17,8 @@ const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
+    console.log("token ok");
+
     _jsonwebtoken.default.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null; // res.cookie("jwt", '', { maxAge: 1 })
@@ -34,8 +36,10 @@ const checkUser = (req, res, next) => {
       }
     });
   } else {
+    console.log("token invalid");
     res.locals.user = null;
-    next();
+    return next(new _HttpException.HttpException('Unauthorized', _HttpException.HttpStatus.UNAUTHORIZED));
+    /*     next(); */
   }
 };
 
