@@ -19,6 +19,11 @@ export function launch({ host, protocol, port }) {
       credentials: true,
     })
   );
+  application.use(function( req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  })
   application.use(cookieParser());
 
   application.use(express.json());
