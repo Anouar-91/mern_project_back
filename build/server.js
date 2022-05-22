@@ -42,7 +42,7 @@ function launch({
 
 
   application.use(cors({
-    origin: "https://magenta-frangollo-b9361a.netlify.app",
+    origin: ["https://magenta-frangollo-b9361a.netlify.app", "http://localhost:3000"],
     methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
     credentials: true
   }));
