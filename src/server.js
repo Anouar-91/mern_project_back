@@ -19,7 +19,7 @@ export function launch({ host, protocol, port }) {
   }); */
   application.use(
     cors({
-      origin: "https://magenta-frangollo-b9361a.netlify.app/",
+      origin: "https://magenta-frangollo-b9361a.netlify.app",
       methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
       credentials: true,
     })
