@@ -21,7 +21,7 @@ export function launch({ host, protocol, port }) {
     cors({
       origin: "*",
       methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-      credentials: true,
+      credentials: false,
     })
   );
 

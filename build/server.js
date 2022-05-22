@@ -43,7 +43,7 @@ function launch({
   application.use(cors({
     origin: "*",
     methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-    credentials: true
+    credentials: false
   }));
   application.use(cookieParser());
   application.use(_express.default.json()); // notre middleware de sécurité
