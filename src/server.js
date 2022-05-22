@@ -12,13 +12,17 @@ export function launch({ host, protocol, port }) {
   require('dotenv').config({ path: './.env' })
   require('../database.js')
 
-  application.use(function( req, res, next) {
+/*   application.use(function( req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+  }); */
   application.use(
-    cors()
+    cors({
+      origin: "https://magenta-frangollo-b9361a.netlify.app/",
+      methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+      credentials: true,
+    })
   );
 
   application.use(cookieParser());
