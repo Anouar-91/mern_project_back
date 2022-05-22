@@ -18,11 +18,7 @@ export function launch({ host, protocol, port }) {
     next();
   });
   application.use(
-    cors({
-      origin: "*",
-      methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-      credentials: false,
-    })
+    cors()
   );
 
   application.use(cookieParser());
