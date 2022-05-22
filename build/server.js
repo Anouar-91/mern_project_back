@@ -36,7 +36,7 @@ function launch({
   require('../database.js');
 
   application.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: "*",
     methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
     credentials: true
   }));
