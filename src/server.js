@@ -14,7 +14,7 @@ export function launch({ host, protocol, port }) {
 
   application.use(
     cors({
-      origin: process.env.CLIENT_URL,
+      origin: "*",
       methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
       credentials: true,
     })

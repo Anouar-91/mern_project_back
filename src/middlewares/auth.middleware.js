@@ -25,8 +25,9 @@ export const checkUser = (req, res, next) => {
   else {
     console.log("token invalid")
     res.locals.user = null;
-    return next(new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED));
-/*     next(); */
+/*     return next(new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED));
+ */
+    next();
   }
 }
 

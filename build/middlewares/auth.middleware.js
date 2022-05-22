@@ -38,8 +38,10 @@ const checkUser = (req, res, next) => {
   } else {
     console.log("token invalid");
     res.locals.user = null;
-    return next(new _HttpException.HttpException('Unauthorized', _HttpException.HttpStatus.UNAUTHORIZED));
-    /*     next(); */
+    /*     return next(new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED));
+     */
+
+    next();
   }
 };
 
